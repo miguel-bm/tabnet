@@ -410,3 +410,40 @@ def infer_multitask_output(y_train):
         except ValueError as err:
             raise ValueError(f"""Error for task {task_idx} : {err}""")
     return tasks_dims, tasks_labels
+
+
+def infer_multitask_binary_output(y_train):
+    """
+    Infer output_dim from targets
+    This is for multiple tasks.
+
+    Parameters
+    ----------
+    y_train : np.ndarray
+        Training targets
+
+    Returns
+    -------
+    tasks_dims : list
+        Number of classes for output
+    tasks_labels : list
+        List of sorted list of initial classes
+    """
+
+    if len(y_train.shape) < 2:
+        raise ValueError(
+            f"""y_train shoud be of shape (n_examples, n_tasks) """
+            + f"""but got {y_train.shape}"""
+        )
+    nb_tasks = y_train.shape[1]
+    tasks_dims = []
+    tasks_labels = []
+    for task_idx in range(nb_tasks):
+        try:
+            output_dim, train_labels = 2, np.array([0, 1])
+
+            tasks_dims.append(output_dim)
+            tasks_labels.append(train_labels)
+        except ValueError as err:
+            raise ValueError(f"""Error for task {task_idx} : {err}""")
+    return tasks_dims, tasks_labels
