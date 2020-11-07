@@ -165,7 +165,7 @@ class TabNetMultiTaskClassifier(TabModel):
 
 class TabNetMultiTaskBinaryClassifier(TabModel):
     def __post_init__(self):
-        super(TabNetMultiTaskClassifier, self).__post_init__()
+        super(TabNetMultiTaskBinaryClassifier, self).__post_init__()
         self._task = 'classification'
         self._default_loss = torch.nn.functional.cross_entropy
         self._default_metric = 'logloss'
