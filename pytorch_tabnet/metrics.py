@@ -205,6 +205,34 @@ class LogLoss(Metric):
         return log_loss(y_true, y_score)
 
 
+class BinaryLogLoss(Metric):
+    """
+    BinaryLogLoss.
+    """
+
+    def __init__(self):
+        self._name = "blogloss"
+        self._maximize = False
+
+    def __call__(self, y_true, y_score):
+        """
+        Compute LogLoss of predictions.
+
+        Parameters
+        ----------
+        y_true : np.ndarray
+            Target matrix or vector
+        y_score : np.ndarray
+            Score matrix or vector
+
+        Returns
+        -------
+        float
+            LogLoss of predictions vs targets.
+        """
+        return log_loss(y_true, y_score, labels=(0, 1))
+
+
 class MAE(Metric):
     """
     Mean Absolute Error.
